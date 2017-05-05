@@ -98,15 +98,17 @@
                     <a href="<?=self::link('alunos/pagina/1')?>">1</a>
                     </a>
                 </li>
-                
+
                 <?php for ($i = 2; $i <= $_SESSION['alunos']['count'] - 1; $i++):?>
                 <li <?=$_SESSION['alunos']['current_page'] == $i? 'class="active"': ''?>><a href="<?=self::link('alunos/pagina/'.$i);?>"><?=$i?></a></li>
                 <?php endfor; ?>
-
+                
+                <?php if ($_SESSION['alunos']['count'] > 1): ?>
                 <li<?=$_SESSION['alunos']['current_page'] == $_SESSION['alunos']['count']? ' class="active"': ''?>>
                     <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>"><?=$_SESSION['alunos']['count']?></a>
                     </a>
                 </li>
+                <?php endif;?>
                 <li>
                     <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>

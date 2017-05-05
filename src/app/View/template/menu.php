@@ -6,7 +6,7 @@
             </section>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<?=self::link('')?>">Principal</a></li>
+                    <li class="active"><a href="<?=self::link('')?>">Principal</a></li>
                     <li><a href="<?=self::link('alunos')?>">Alunos</a></li>
                 </ul>
             </div>
