@@ -16,6 +16,7 @@ class Home extends Controller
     public function index()
     {
         $this->data['data'] = isset($_SESSION['search'])? unserialize($_SESSION['search']): [];
+        $this->data['count'] = isset($_SESSION['search'])? count(unserialize($_SESSION['search'])): null;
         unset($_SESSION['search']);
         $this->content('home/index', $this->data);
     }

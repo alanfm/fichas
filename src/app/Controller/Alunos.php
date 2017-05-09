@@ -21,6 +21,7 @@ class Alunos extends Controller
     {
         $this->form(null);
         $this->data['data'] = isset($_SESSION['search'])? unserialize($_SESSION['search']): $this->read();
+        $this->data['count'] = isset($_SESSION['search'])? count(unserialize($_SESSION['search'])): Model::count();
         unset($_SESSION['search']);
         $this->content('alunos/index', $this->data);
     }

@@ -41,7 +41,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>>
 </section>
 <section class="col-md-7">
     <div class="panel panel-default">
@@ -58,6 +58,7 @@
                     </span>
                 </div>
             </form>
+            <p>Total de registro: <strong><?=$count?></strong></p
         </div>
         <table class="table table-striped table-hover table-condensed">
             <thead>
@@ -89,31 +90,59 @@
         <?php if ($_SESSION['alunos']['count'] > 1 && empty($_SESSION['alunos']['search'])):?>
         <nav aria-label="page navigation" class="text-center">
             <ul class="pagination pagination-sm">
-                <li>
-                    <a href="<?=self::link('alunos/pagina/1')?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
+                <?php if ($_SESSION['alunos']['current_page'] != 1):?>
+                    <li>
+                        <a href="<?=self::link('alunos/pagina/1')?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php endif;?>
+
                 <li<?=$_SESSION['alunos']['current_page'] == 1? ' class="active"': ''?>>
                     <a href="<?=self::link('alunos/pagina/1')?>">1</a>
                     </a>
                 </li>
 
-                <?php for ($i = 2; $i <= $_SESSION['alunos']['count'] - 1; $i++):?>
-                <li <?=$_SESSION['alunos']['current_page'] == $i? 'class="active"': ''?>><a href="<?=self::link('alunos/pagina/'.$i);?>"><?=$i?></a></li>
-                <?php endfor; ?>
+                <?php
+                
+                if ($_SESSION['alunos']['current_page'] <= 4){
+                    $i = 2;
+                } else {
+                    $i = $_SESSION['alunos']['current_page'] - 3;
+                    if ($_SESSION['alunos']['current_page'] > 5) {
+                        echo '<li class="disabled"><a href="javascript:void()">...</a></li>';
+                    }
+                }
+
+                if ($_SESSION['alunos']['count'] >= 8 && ($_SESSION['alunos']['current_page'] + 3) < $_SESSION['alunos']['count']) {
+                    $end = $_SESSION['alunos']['current_page'] + 3;
+                } else {
+                    $end = $_SESSION['alunos']['count'] - 1;
+                }
+
+                for (; $i <= $end; $i++):?>
+                    <li <?=$_SESSION['alunos']['current_page'] == $i? 'class="active"': ''?>><a href="<?=self::link('alunos/pagina/'.$i);?>"><?=$i?></a></li>
+                <?php
+                endfor;
+                if ($_SESSION['alunos']['count'] > ($end + 1)) {
+                    echo '<li class="disabled"><a href="javascript:void()">...</a></li>';
+                }
+                ?>
+
                 
                 <?php if ($_SESSION['alunos']['count'] > 1): ?>
-                <li<?=$_SESSION['alunos']['current_page'] == $_SESSION['alunos']['count']? ' class="active"': ''?>>
-                    <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>"><?=$_SESSION['alunos']['count']?></a>
-                    </a>
-                </li>
+                    <li<?=$_SESSION['alunos']['current_page'] == $_SESSION['alunos']['count']? ' class="active"': ''?>>
+                        <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>"><?=$_SESSION['alunos']['count']?></a>
+                        </a>
+                    </li>
                 <?php endif;?>
-                <li>
-                    <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <?php if ($_SESSION['alunos']['count'] != $_SESSION['alunos']['current_page']):?>
+                    <li>
+                        <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php endif;?>
             </ul>
         </nav>
         <?php endif;?>

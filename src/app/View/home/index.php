@@ -20,6 +20,9 @@
                     </span>
                 </div>
             </form>
+            <?php if (!is_null($count)):?>
+                <p>Total de registros encontrados: <strong><?=$count?></strong></p>
+            <?php endif;?>
         </div>     
         <table class="table table-striped table-hover">
             <thead>
