@@ -122,7 +122,7 @@ class Alunos extends Controller
         $_SESSION['alunos']['search'] = true;
         $field = filter_input(INPUT_POST, 'search');
         $_SESSION['search'] = serialize(Model::all(['select'=>'*',
-                                                    'conditions'=>['nome LIKE CONCAT("%",?,"%")', $field],
+                                                    'conditions'=>['nome LIKE CONCAT("%",?,"%") OR ficha LIKE CONCAT("%",?,"%")', $field, $field],
                                                     'order'=>'id DESC']));
         Utilities::redirect('alunos');
         exit();

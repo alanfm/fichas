@@ -14,7 +14,7 @@
             <form action="<?=self::link('pesquisar');?>" method="post">
                 <input type="hidden" value="<?=System\Utilities::token();?>" name="token">
                 <div class="input-group">
-                    <input type="text" class="form-control input-lg" minlength="3" name="search" placeholder="Nome do Aluno" required autofocus>
+                    <input type="text" class="form-control input-lg" minlength="3" name="search" placeholder="Nome ou ficha do Aluno" required autofocus>
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-lg" type="submit"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                     </span>

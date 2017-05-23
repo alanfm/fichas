@@ -52,7 +52,7 @@
             <form action="<?=self::link('alunos/pesquisar');?>" method="post">
                 <input type="hidden" value="<?=System\Utilities::token();?>" name="token">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" minlength="3" placeholder="Nome do Aluno" required>
+                    <input type="text" class="form-control" name="search" minlength="3" placeholder="Nome ou ficha do Aluno" required>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                     </span>

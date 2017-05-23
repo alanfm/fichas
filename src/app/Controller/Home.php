@@ -31,7 +31,7 @@ class Home extends Controller
 
         $field = filter_input(INPUT_POST, 'search');
         $_SESSION['search'] = serialize(Alunos::all(['select'=>'*',
-                                                    'conditions'=>['nome LIKE CONCAT("%",?,"%")', $field],
+                                                    'conditions'=>['nome LIKE CONCAT("%",?,"%") OR ficha LIKE CONCAT("%",?,"%")', $field, $field],
                                                     'order'=>'id DESC']));
         Utilities::redirect('');
         exit();
