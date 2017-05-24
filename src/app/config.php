@@ -15,7 +15,7 @@ define('BASE_DIR', $_SERVER['DOCUMENT_ROOT']);
 /**
  * Modifique para a URL do seu sistema
  */
-define('URL_BASE','http://192.168.2.201/fichas/');
+define('URL_BASE','http://fichas.dev/');
 
 /**
  * Configurações para conexão com o banco de dados

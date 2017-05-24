@@ -52,7 +52,7 @@
             <form action="<?=self::link('alunos/pesquisar');?>" method="post">
                 <input type="hidden" value="<?=System\Utilities::token();?>" name="token">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" minlength="3" placeholder="Nome ou ficha do Aluno" required>
+                    <input type="text" class="form-control" name="search" minlength="1" placeholder="Nome ou ficha do Aluno" required>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                     </span>
@@ -87,65 +87,11 @@
                 <?php endforeach;?>
             </tbody>
         </table>
-        <?php if ($_SESSION['alunos']['count'] > 1 && empty($_SESSION['alunos']['search'])):?>
-        <nav aria-label="page navigation" class="text-center">
-            <ul class="pagination pagination-sm">
-                <?php if ($_SESSION['alunos']['current_page'] != 1):?>
-                    <li>
-                        <a href="<?=self::link('alunos/pagina/1')?>" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                <?php endif;?>
-
-                <li<?=$_SESSION['alunos']['current_page'] == 1? ' class="active"': ''?>>
-                    <a href="<?=self::link('alunos/pagina/1')?>">1</a>
-                    </a>
-                </li>
-
-                <?php
-                
-                if ($_SESSION['alunos']['current_page'] <= 4){
-                    $i = 2;
-                } else {
-                    $i = $_SESSION['alunos']['current_page'] - 3;
-                    if ($_SESSION['alunos']['current_page'] > 5) {
-                        echo '<li class="disabled"><a href="javascript:void()">...</a></li>';
-                    }
-                }
-
-                if ($_SESSION['alunos']['count'] >= 8 && ($_SESSION['alunos']['current_page'] + 3) < $_SESSION['alunos']['count']) {
-                    $end = $_SESSION['alunos']['current_page'] + 3;
-                } else {
-                    $end = $_SESSION['alunos']['count'] - 1;
-                }
-
-                for (; $i <= $end; $i++):?>
-                    <li <?=$_SESSION['alunos']['current_page'] == $i? 'class="active"': ''?>><a href="<?=self::link('alunos/pagina/'.$i);?>"><?=$i?></a></li>
-                <?php
-                endfor;
-                if ($_SESSION['alunos']['count'] > ($end + 1)) {
-                    echo '<li class="disabled"><a href="javascript:void()">...</a></li>';
-                }
-                ?>
-
-                
-                <?php if ($_SESSION['alunos']['count'] > 1): ?>
-                    <li<?=$_SESSION['alunos']['current_page'] == $_SESSION['alunos']['count']? ' class="active"': ''?>>
-                        <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>"><?=$_SESSION['alunos']['count']?></a>
-                        </a>
-                    </li>
-                <?php endif;?>
-                <?php if ($_SESSION['alunos']['count'] != $_SESSION['alunos']['current_page']):?>
-                    <li>
-                        <a href="<?=self::link('alunos/pagina/'.$_SESSION['alunos']['count'])?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                <?php endif;?>
-            </ul>
-        </nav>
-        <?php endif;?>
+        <?php
+        if ($_SESSION['alunos']['count'] > 1 && empty($_SESSION['alunos']['search'])) {
+            $this->template('template/pagination')->data(['current'=>$_SESSION['alunos']['current_page'], 'count'=>$_SESSION['alunos']['count'], 'pagina'=>'alunos'])->show();
+        }
+        ?>
         <?php if (isset($_SESSION['alunos']['search'])): unset($_SESSION['alunos']['search']);?>
             <div class="text-center">
                 <a href="<?=self::link('alunos');?>" class="btn btn-primary" style="margin-bottom: 2rem;margin-top: 2rem;">Mostrar todos</a>
